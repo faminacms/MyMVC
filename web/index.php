@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__.'/../app/config/main.php';
+require_once FRAMEWORK.'/components/db/Connection.php';
+
+$con = new Connection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+?>
 <!DOCTYPE html>
 <html class="hide-sidebar ls-bottom-footer" lang="en">
 <head>

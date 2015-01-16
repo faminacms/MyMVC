@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__.'/../app/config/main.php';
+require_once FRAMEWORK.'/components/db/Connection.php';
+
+$con = new Connection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+
+$sql = "SELECT * FROM property WHERE id = {$_GET['id']}";
+$data = $con->query($sql);
+if (count($data))
+    $prop = $data[0];
+else
+    $prop = [];
+?>
 <!DOCTYPE html>
 <html class="st-layout ls-top-navbar ls-bottom-footer show-sidebar sidebar-l1 sidebar-r1-xs sidebar-r-25pc-lg sidebar-r-30pc" lang="en">
 <head>
@@ -276,7 +289,7 @@
                     <div id="carousel-example-generic" class="carousel slide cover overlay overflow-hidden margin-bottom-none max-height-500" data-ride="carousel">
                         <div class="ribbon-mark large">
                             <span class="caret caret-primary"></span>
-                            <span class="text">&euro;1,129,450</span>
+                            <span class="text">&dollar;<?php echo number_format($prop['price'],2); ?></span>
                         </div>
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -297,7 +310,7 @@
                         <div class="overlay overlay-bg-black">
                             <div class="v-bottom">
                                 <div class="jumbotron bg-transparent margin-none">
-                                    <h1 class="text-h1 margin-none">Hotel Lorensberg</h1>
+                                    <h1 class="text-h1 margin-none"><?php echo $prop['name']; ?></h1>
                                     <p class="lead">Frana Supila 12, Ploce, 20000 Dubrovnik, Croatia</p>
                                 </div>
                             </div>
@@ -336,7 +349,7 @@
                                 <h4 class="panel-title">Description</h4>
                             </div>
                             <div class="panel-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam consequatur cupiditate deleniti, dignissimos dolore dolorem eius eum eveniet illum in, laboriosam nesciunt pariatur quo, recusandae sed sint totam unde vero vitae! Aliquid dolor dolore doloremque dolores exercitationem facere fuga, harum in non nulla perferendis provident sequi similique unde vitae!
+                                <?php echo $prop['description'] ?>
                             </div>
                         </div>
                         <div class="panel panel-default">
