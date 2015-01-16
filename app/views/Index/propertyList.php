@@ -1,7 +1,3 @@
-<?php
-$sql = "SELECT * FROM property WHERE rating >= 40";
-$data = $con->query($sql);
-?>
 <div class="owl-basic" data-items="5" data-items-desktop="3" data-items-desktop-small="2">
 <?php foreach($data as $prop) :?>
     <div class="item">
