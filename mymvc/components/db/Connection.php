@@ -14,19 +14,13 @@ class Connection extends Component {
     /** @var  PDO $pdo */
     private $pdo;
 
-    public function __construct($connectionString, $username, $password) {
-        $this->connectionString = $connectionString;
-        $this->username = $username;
-        $this->password = $password;
-
-        $this->connect();
-    }
-
     public function connect() {
         $this->pdo = new PDO($this->connectionString, $this->username, $this->password);
     }
 
     public function query($sql) {
+        if ($this->pdo == null)
+            $this->connect();
         $statement = $this->pdo->query($sql);
         if (!$statement)
             return [];
@@ -34,6 +28,8 @@ class Connection extends Component {
     }
 
     public function exec($sql) {
+        if ($this->pdo == null)
+            $this->connect();
         return $this->pdo->exec($sql);
     }
 

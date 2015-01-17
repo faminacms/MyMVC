@@ -7,7 +7,7 @@
 class IndexController {
 
     public function handleRequest() {
-        $con = new Connection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+        $con = Application::instance()->db;
 
         $sql = "SELECT * FROM property WHERE rating >= 40";
         $data = $con->query($sql);
