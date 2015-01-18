@@ -4,9 +4,9 @@
  * @package:
  */
 
-require_once FRAMEWORK.'core/PageView.php';
+require_once FRAMEWORK.'core/Controller.php';
 
-class IndexController {
+class IndexController extends Controller {
 
     public function handleRequest() {
         $con = Application::instance()->db;
@@ -19,8 +19,4 @@ class IndexController {
             ]);
     }
 
-    protected function render($view, array $data = []) {
-        $view = new PageView($this, $view);
-        return $view->render($data);
-    }
 }
