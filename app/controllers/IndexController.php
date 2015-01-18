@@ -4,6 +4,8 @@
  * @package:
  */
 
+require_once FRAMEWORK.'core/PageView.php';
+
 class IndexController {
 
     public function handleRequest() {
@@ -18,14 +20,7 @@ class IndexController {
     }
 
     protected function render($view, array $data = []) {
-        $viewPath = WEB_ROOT.'app/views/';
-        $controllerViewFolder = str_replace('Controller','',get_class($this));
-        $viewFile = "{$viewPath}{$controllerViewFolder}/{$view}.php";
-
-        extract($data);
-
-        ob_start();
-        require $viewFile;
-        return ob_get_clean();
+        $view = new PageView($this, $view);
+        return $view->render($data);
     }
 }

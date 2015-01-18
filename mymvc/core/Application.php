@@ -109,9 +109,9 @@ class Application extends Component {
         $controller = new $controllerClass();
 
         /** ask controller to handle request and get the result */
-        $content = $controller->handleRequest();
+        echo $controller->handleRequest();
 
-        /** put the result into layout and return to browser */
-        require_once WEB_ROOT.'/app/views/layouts/main.php';
+//        /** put the result into layout and return to browser */
+//        require_once WEB_ROOT.'/app/views/layouts/main.php';
     }
 }
