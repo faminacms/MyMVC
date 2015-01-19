@@ -15,6 +15,15 @@ class Application extends Component {
         if ($this::$instance instanceof Application)
             return $this::$instance;
 
+        $defaultConfig = require_once(FRAMEWORK.'config/default.php');
+        if (!isset($config['Components'])){
+            $config['Components'] = $defaultConfig['Components'];
+        } else {
+            foreach($defaultConfig['Components'] as $com => $comConfig)
+                if (!isset($config['Components'][$com]))
+                    $config['Components'][$com] = $comConfig;
+        }
+
         foreach($config as $property => $value) {
             $this->$property = $value;
         }
@@ -99,19 +108,16 @@ class Application extends Component {
     }
 
     public function run() {
-        /** parse URL to identify the request and controller to handle it */
-        $request = isset($_GET['r']) ? $_GET['r'] : 'index';
-        $controllerClass = ucfirst($request).'Controller';
-        $controllerPath = WEB_ROOT.'/app/controllers/'.$controllerClass.'.php';
 
-        /** create the controller */
-        require_once $controllerPath;
-        $controller = new $controllerClass();
+        /** @var Router $router */
+        $router = $this->router;
 
-        /** ask controller to handle request and get the result */
-        echo $controller->handleRequest();
+        $request = $this->request;
 
-//        /** put the result into layout and return to browser */
-//        require_once WEB_ROOT.'/app/views/layouts/main.php';
+        /** @var Controller $controller */
+        list($controller, $action) = $router->parseRequest($request);
+        $controller = $this->createComponent($controller);
+
+        echo $controller->runAction($action, $request);
     }
 }

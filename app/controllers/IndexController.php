@@ -8,7 +8,7 @@ require_once FRAMEWORK.'core/Controller.php';
 
 class IndexController extends Controller {
 
-    public function handleRequest() {
+    public function index() {
         $con = Application::instance()->db;
 
         $sql = "SELECT * FROM property WHERE rating >= 40";
