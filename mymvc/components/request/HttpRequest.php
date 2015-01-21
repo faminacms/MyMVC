@@ -9,25 +9,34 @@ require_once 'Request.php';
 class HttpRequest extends Request {
 
     protected $routeParamName = 'r';
+    protected  $defaultRoute = 'index/index';
 
     public function __construct() {
         $this->params = $_REQUEST;
-        if (!isset($this->params[$this->routeParamName]))
-            $this->route = 'index/index';
-        else
-            $this->route = $this->params[$this->routeParamName];
     }
 
     public function getRoute() {
+        if (!isset($this->params[$this->routeParamName]))
+            $this->route = $this->defaultRoute;
+        else
+            $this->route = $this->params[$this->routeParamName];
         return $this->route;
+    }
+
+    public function getDefaultRoute() {
+        return $this->defaultRoute;
+    }
+
+    public function setDefaultRoute($value) {
+        return $this->defaultRoute = $value;
     }
 
     public function url($route, array $params = []) {
         if (strpos($route, '/') === false) {
             /** route is just an action of the current controller */
-            $route = Application::instance()->router->RequestedController.'/'.$route;
+            $controllerRoute = str_replace('Controller','',Application::instance()->router->getRequestedController());
+            $route = $controllerRoute.'/'.$route;
         }
-
 
         return $this->getBaseUrl()."?{$this->routeParamName}={$route}&".http_build_query($params);
     }

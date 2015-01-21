@@ -8,6 +8,7 @@ require_once 'Component.php';
 /**
  * Class Application
  * @property HttpRequest request
+ * @property Router router
  * @property Connection db
  */
 class Application extends Component {
@@ -27,6 +28,8 @@ class Application extends Component {
             foreach($defaultConfig['Components'] as $com => $comConfig)
                 if (!isset($config['Components'][$com]))
                     $config['Components'][$com] = $comConfig;
+                else
+                    $config['Components'][$com] = array_merge($comConfig, $config['Components'][$com]);
         }
 
         foreach($config as $property => $value) {

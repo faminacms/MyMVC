@@ -19,9 +19,9 @@ class Router extends Component {
         $action = $pathInfo['basename'];
         $controller = $pathInfo['dirname'];
 
-        $this->requestedController = '/app/controllers/' . $this->getMappedPath($controller);
+        $this->requestedController = $this->getMappedPath($controller);
 
-        return [$this->requestedController, $action];
+        return ['/app/controllers/' . $this->requestedController, $action];
     }
 
     public function getRequestedController() {
