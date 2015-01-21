@@ -5,6 +5,11 @@
  */
 require_once 'Component.php';
 
+/**
+ * Class Application
+ * @property HttpRequest request
+ * @property Connection db
+ */
 class Application extends Component {
 
     private static $instance;

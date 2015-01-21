@@ -19,7 +19,8 @@ class Controller extends Component {
         if ($ref->hasMethod($action)) {
             $method = $ref->getMethod($action);
             if ($method->isPublic()) {
-                return call_user_func(array($this, $action), $params);
+                //return call_user_func(array($this, $action), $params);
+                return $this->$action($params);
             }
         }
 

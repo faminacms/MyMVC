@@ -1,5 +1,8 @@
 <div class="owl-basic" data-items="5" data-items-desktop="3" data-items-desktop-small="2">
 <?php foreach($data as $prop) :?>
+    <?php
+    $url = Application::instance()->request->url('property/index', ['id' => $prop['id']]);
+    ?>
     <div class="item">
         <div class="panel panel-default">
             <div class="cover hover overlay margin-none">
@@ -7,12 +10,12 @@
                     <span class="caret caret-primary"></span>
                     <span class="text">Sale</span>
                 </div>
-                <a href="property.php?id=<?php echo $prop['id'];?>" class="overlay overlay-full overlay-bg-black overlay-hover">
+                <a href="<?php echo $url; ?>" class="overlay overlay-full overlay-bg-black overlay-hover">
                                         <span class="v-center">
                         <span class="btn btn-circle btn-white"><i class="fa fa-eye"></i></span>
                                         </span>
                 </a>
-                <a href="property.php?id=<?php echo $prop['id'];?>">
+                <a href="<?php echo $url; ?>">
                     <img src="images/photodune-378874-real-estate-xs.jpg" alt="location" class="img-responsive" />
                 </a>
             </div>
@@ -32,7 +35,7 @@
                     <i class="fa fa-fw icon-home-fill-1"></i> Agency
                 </div>
                 <div class="list-group-item text-center">
-                    <a href="property.php?id=<?php echo $prop['id'];?>" class="btn btn-primary"><i class="fa fa-fw fa-shopping-cart"></i>
+                    <a href="<?php echo $url; ?>" class="btn btn-primary"><i class="fa fa-fw fa-shopping-cart"></i>
                         Details</a>
                 </div>
             </div>

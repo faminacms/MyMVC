@@ -11,15 +11,21 @@ class Router extends Component {
     protected $routeMap = [];
     protected $controllerMap = [];
 
+    protected $requestedController = '';
+
     public function parseRequest($request) {
         $route = $request->Route;
         $pathInfo = pathinfo($route);
         $action = $pathInfo['basename'];
         $controller = $pathInfo['dirname'];
 
-        $controller = '/app/controllers/' . $this->getMappedPath($controller);
+        $this->requestedController = '/app/controllers/' . $this->getMappedPath($controller);
 
-        return [$controller, $action];
+        return [$this->requestedController, $action];
+    }
+
+    public function getRequestedController() {
+        return $this->requestedController;
     }
 
     protected function getMappedPath($controller) {

@@ -27,6 +27,13 @@ class Connection extends Component {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function queryRow($sql) {
+        $rows = $this->query($sql);
+        if (!$rows)
+            return false;
+        return $rows[0];
+    }
+
     public function exec($sql) {
         if ($this->pdo == null)
             $this->connect();
