@@ -33,8 +33,8 @@ class View extends Component {
 
     protected  function getViewFile() {
         if (strpos($this->view, '/') !== 0) {
-            $controllerViewFolder = str_replace('Controller','',get_class($this->controller));
-            $viewFile = "{$this->viewPath}{$controllerViewFolder}/{$this->view}.php";
+            $controllerRoute = str_replace('Controller','',Application::instance()->router->getRequestedController());
+            $viewFile = "{$this->viewPath}{$controllerRoute}/{$this->view}.php";
         } else {
             $viewFile = $this->viewPath.$this->view.'.php';
         }
